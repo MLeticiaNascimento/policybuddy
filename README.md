@@ -8,4 +8,5 @@
 
 uv sync
 
-Instale o uv e execute uv sync
+## Executar comandos
+uv run streamlit run app.py

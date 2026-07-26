@@ -1,1 +1,0 @@
-# responsável pela busca

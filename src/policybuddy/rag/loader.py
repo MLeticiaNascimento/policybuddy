@@ -2,7 +2,6 @@ from pathlib import Path
 
 from langchain_community.document_loaders import TextLoader
 
-
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 
 DEFAULT_DOCS_PATH = PROJECT_ROOT / "docs"
@@ -24,10 +23,7 @@ def load_documents(docs_path=DEFAULT_DOCS_PATH):
             print(f" - {file.name}")
 
     for file_path in docs_path.glob("*.md"):
-        loader = TextLoader(
-            str(file_path),
-            encoding="utf-8"
-        )
+        loader = TextLoader(str(file_path), encoding="utf-8")
 
         documents.extend(loader.load())
 

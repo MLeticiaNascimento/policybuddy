@@ -70,7 +70,8 @@ def test_retrieve_documents_respects_k(tmp_path):
     )
 
     assert len(results) == 2
-    
+
+
 def test_retrieve_documents_returns_relevant_content(tmp_path):
 
     vectorstore_path = tmp_path / "vectorstore"
@@ -89,9 +90,6 @@ def test_retrieve_documents_returns_relevant_content(tmp_path):
         k=3,
     )
 
-    text = " ".join(
-        document.page_content.lower()
-        for document, _ in results
-    )
+    text = " ".join(document.page_content.lower() for document, _ in results)
 
     assert "password" in text

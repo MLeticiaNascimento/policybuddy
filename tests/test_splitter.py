@@ -25,24 +25,16 @@ def test_split_documents_returns_documents():
 
     chunks = split_documents(documents)
 
-    assert all(
-        isinstance(chunk, Document)
-        for chunk in chunks
-    )
+    assert all(isinstance(chunk, Document) for chunk in chunks)
 
 
 def test_split_documents_preserves_content():
 
-    documents = load_documents(
-        Path("docs/policies")
-    )
+    documents = load_documents(Path("docs/policies"))
 
     chunks = split_documents(documents)
 
-    assert all(
-        chunk.page_content.strip()
-        for chunk in chunks
-    )
+    assert all(chunk.page_content.strip() for chunk in chunks)
 
 
 def test_split_documents_preserves_metadata():
@@ -53,4 +45,3 @@ def test_split_documents_preserves_metadata():
 
     for chunk in chunks:
         assert chunk.metadata is not None
-        

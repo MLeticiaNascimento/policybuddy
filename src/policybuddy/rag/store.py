@@ -1,15 +1,17 @@
-from pathlib import Path
 import shutil
+from pathlib import Path
 
 from langchain_chroma import Chroma
 from langchain_core.documents import Document
 
 from policybuddy.rag.embeddings import create_embeddings
 
-
 VECTOR_STORE_PATH = Path("vectorstore")
 
-def create_vector_store(documents: list[Document],persist_directory: Path = VECTOR_STORE_PATH) -> Chroma:
+
+def create_vector_store(
+    documents: list[Document], persist_directory: Path = VECTOR_STORE_PATH
+) -> Chroma:
     """
     Create a new Chroma vector store from the provided documents.
 

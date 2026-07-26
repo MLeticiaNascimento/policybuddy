@@ -4,7 +4,6 @@ from langchain_text_splitters import (
     RecursiveCharacterTextSplitter,
 )
 
-
 HEADERS_TO_SPLIT_ON = [
     ("#", "title"),
     ("##", "section"),

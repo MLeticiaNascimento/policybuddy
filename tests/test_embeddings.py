@@ -7,18 +7,13 @@ def test_create_embeddings_returns_model():
 
     embeddings = create_embeddings()
 
-    assert isinstance(
-        embeddings,
-        HuggingFaceEmbeddings
-    )
+    assert isinstance(embeddings, HuggingFaceEmbeddings)
 
 
 def test_embeddings_generate_vector():
 
     embeddings = create_embeddings()
 
-    vector = embeddings.embed_query(
-        "data privacy policy"
-    )
+    vector = embeddings.embed_query("data privacy policy")
 
     assert len(vector) > 0

@@ -1,4 +1,3 @@
-from pathlib import Path
 import shutil
 
 from langchain_chroma import Chroma
@@ -35,6 +34,7 @@ def test_create_vector_store_returns_chroma(tmp_path):
     )
 
     assert isinstance(vector_store, Chroma)
+
 
 def test_create_vector_store_creates_directory(tmp_path):
 

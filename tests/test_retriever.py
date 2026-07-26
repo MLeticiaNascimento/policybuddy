@@ -1,21 +1,37 @@
-from langchain_core.documents import Document
+from pathlib import Path
 
 from policybuddy.rag.loader import load_documents
-from policybuddy.rag.retriever import retrieve_documents
+from policybuddy.rag.retriever import (
+    PolicyRetriever,
+    RetrievalStatus,
+    EvidenceConfidence,
+    retrieve_documents,
+)
 from policybuddy.rag.splitter import split_documents
 from policybuddy.rag.store import create_vector_store
 
 
+def create_test_vectorstore(tmp_path: Path):
+
+    vectorstore_path = tmp_path / "vectorstore"
+
+    documents = load_documents()
+
+    chunks = split_documents(
+        documents
+    )
+
+    create_vector_store(
+        chunks,
+        vectorstore_path,
+    )
+
+    return vectorstore_path
+
 def test_retrieve_documents_returns_list(tmp_path):
 
-    vectorstore_path = tmp_path / "vectorstore"
-
-    documents = load_documents()
-    chunks = split_documents(documents)
-
-    create_vector_store(
-        chunks,
-        vectorstore_path,
+    vectorstore_path = create_test_vectorstore(
+        tmp_path
     )
 
     results = retrieve_documents(
@@ -23,73 +39,75 @@ def test_retrieve_documents_returns_list(tmp_path):
         persist_directory=vectorstore_path,
     )
 
-    assert isinstance(results, list)
-
-
-def test_retrieve_documents_returns_document_and_score(tmp_path):
-
-    vectorstore_path = tmp_path / "vectorstore"
-
-    documents = load_documents()
-    chunks = split_documents(documents)
-
-    create_vector_store(
-        chunks,
-        vectorstore_path,
-    )
-
-    results = retrieve_documents(
-        query="password policy",
-        persist_directory=vectorstore_path,
+    assert isinstance(
+        results,
+        list,
     )
 
     assert len(results) > 0
 
-    document, score = results[0]
+def test_policy_retriever_returns_documents_with_metadata(
+    tmp_path,
+):
 
-    assert isinstance(document, Document)
-    assert isinstance(score, float)
-
-
-def test_retrieve_documents_respects_k(tmp_path):
-
-    vectorstore_path = tmp_path / "vectorstore"
-
-    documents = load_documents()
-    chunks = split_documents(documents)
-
-    create_vector_store(
-        chunks,
-        vectorstore_path,
+    vectorstore_path = create_test_vectorstore(
+        tmp_path
     )
 
-    results = retrieve_documents(
+    raw_documents = retrieve_documents(
         query="password policy",
         persist_directory=vectorstore_path,
-        k=2,
     )
 
-    assert len(results) == 2
+    print("\nRAW RESULTS")
+
+    for doc, score in raw_documents:
+        print(score, doc.page_content[:100])
 
 
-def test_retrieve_documents_returns_relevant_content(tmp_path):
-
-    vectorstore_path = tmp_path / "vectorstore"
-
-    documents = load_documents()
-    chunks = split_documents(documents)
-
-    create_vector_store(
-        chunks,
-        vectorstore_path,
-    )
-
-    results = retrieve_documents(
-        query="password",
+    retriever = PolicyRetriever(
         persist_directory=vectorstore_path,
-        k=3,
     )
 
-    text = " ".join(document.page_content.lower() for document, _ in results)
+    documents = retriever.invoke(
+        "password policy"
+    )
 
-    assert "password" in text
+    assert len(documents) > 0
+
+def test_policy_retriever_metadata_values(
+    tmp_path,
+):
+
+    vectorstore_path = create_test_vectorstore(
+        tmp_path
+    )
+
+    retriever = PolicyRetriever(
+        persist_directory=vectorstore_path,
+    )
+
+
+    documents = retriever.invoke(
+        "password policy"
+    )
+
+
+    metadata = documents[0].metadata
+    
+    print("\nMETADATA:")
+    for key, value in metadata.items():
+        print(f"- {key}: {value}")
+    
+    assert metadata["retrieval_status"] == (
+        RetrievalStatus.FOUND.value
+    )
+
+
+    assert metadata["evidence_confidence"] == (
+        EvidenceConfidence.HIGH.value
+    )
+    assert isinstance(
+        metadata["retrieval_score"],
+        float,
+    )

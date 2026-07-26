@@ -1,12 +1,14 @@
 from pathlib import Path
+from dotenv import load_dotenv
+import os
 
-BASE_DIR = Path(__file__).resolve().parents[2]
+load_dotenv()
 
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+EMBEDDING_MODEL = "BAAI/bge-small-en-v1.5"
+LLM_MODEL = "gemini-flash-latest"
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
-DOCUMENTS_PATH = BASE_DIR / "docs" / "policies"
-
-
-EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
-
-
-CHROMA_PATH = BASE_DIR / "data" / "chroma"
+VECTORSTORE_PATH = (
+    BASE_DIR / "vectorstore"
+)

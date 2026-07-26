@@ -1,5 +1,4 @@
 from langchain_huggingface import HuggingFaceEmbeddings
-
 from policybuddy.config import EMBEDDING_MODEL
 
 

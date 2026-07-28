@@ -1,8 +1,10 @@
 from pydantic import BaseModel
+
 from policybuddy.rag.retriever import (
-    RetrievalStatus,
     EvidenceConfidence,
+    RetrievalStatus,
 )
+
 
 class SourceDocument(BaseModel):
     content: str

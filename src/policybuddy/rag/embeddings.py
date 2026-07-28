@@ -1,5 +1,6 @@
 from langchain_huggingface import HuggingFaceEmbeddings
-from policybuddy.config import EMBEDDING_MODEL
+
+from policybuddy.config.config import EMBEDDING_MODEL
 
 
 def create_embeddings() -> HuggingFaceEmbeddings:

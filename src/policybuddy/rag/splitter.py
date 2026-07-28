@@ -59,5 +59,5 @@ def split_documents(documents: list[Document]) -> list[Document]:
     sections = _split_by_headers(documents)
 
     chunks = _split_large_sections(sections)
-
+    print(chunks)
     return chunks

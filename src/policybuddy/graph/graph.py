@@ -1,14 +1,15 @@
-from typing import TypedDict, NotRequired
-from langgraph.graph import (StateGraph, START, END)
+from typing import NotRequired, TypedDict
+
 from langchain_core.documents import Document
+from langgraph.graph import END, START, StateGraph
 
 from policybuddy.llm.chains import (
     create_rag_chain,
     format_documents,
 )
 from policybuddy.rag.retriever import (
-    RetrievalStatus,
     EvidenceConfidence,
+    RetrievalStatus,
     create_retriever,
 )
 
@@ -35,10 +36,8 @@ def retrieve_context_node(
     documents = retriever.invoke(
         state["question"]
     )
-
-    context = format_documents(
-        documents
-    )
+    print(f"Documents found: {len(documents)}")
+    context = format_documents(documents)
 
     metadata = (
         documents[0].metadata
@@ -67,18 +66,25 @@ def retrieve_context_node(
 def generate_answer_node(
     state: GraphState,
 ) -> GraphState:
+    print(f"Generating answer for question: {state['question']}")
     """
     Generate the final answer using the RAG chain.
     """
 
     chain = create_rag_chain()
-
+  
+    print("===== CONTEXT SENT TO LLM =====")
+    print(state["context"])
+    print("===== END CONTEXT =====")
+    print("Calling LLM")
+  
     response = chain.invoke(
         {
             "question": state["question"],
             "context": state["context"],
         }
     )
+    print("LLM response")
 
     content = response.content
 
@@ -95,6 +101,7 @@ def generate_answer_node(
     }
     
 def build_graph():
+    print("Building graph")
     """
     Build PolicyBuddy LangGraph workflow.
 

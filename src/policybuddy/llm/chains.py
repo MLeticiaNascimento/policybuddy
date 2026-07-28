@@ -1,11 +1,8 @@
 from pathlib import Path
 
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.runnables import RunnablePassthrough
 
 from policybuddy.llm.providers import create_llm
-from policybuddy.rag.retriever import create_retriever
-
 
 PROMPTS_PATH = Path(__file__).parent / "prompts"
 
@@ -45,7 +42,7 @@ def create_rag_chain():
     """
 
     llm = create_llm()
-
+    print(f"LLM created: {llm}")
     system_prompt = load_prompt(
         "system_prompt.txt"
     )

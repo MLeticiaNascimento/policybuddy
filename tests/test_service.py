@@ -1,8 +1,10 @@
 from unittest.mock import patch
+
 from langchain_core.documents import Document
-from policybuddy.service import (answer_question)
-from policybuddy.app.models import (PolicyBuddyResponse)
-from policybuddy.rag.retriever import (RetrievalStatus,EvidenceConfidence)
+from policybuddy.service.service.service import answer_question
+
+from policybuddy.app.models import PolicyBuddyResponse
+from policybuddy.rag.retriever import EvidenceConfidence, RetrievalStatus
 
 
 @patch("policybuddy.service.ask_policybuddy")

@@ -6,7 +6,6 @@ from langchain_core.retrievers import BaseRetriever
 
 from policybuddy.rag.store import load_vector_store
 
-
 DEFAULT_SCORE_THRESHOLD = 0.65
 
 
@@ -211,5 +210,5 @@ def add_retrieval_metadata(
         )
 
         enriched_documents.append(document)
-
+    print(enriched_documents)
     return enriched_documents

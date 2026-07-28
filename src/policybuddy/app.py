@@ -1,16 +1,14 @@
 import streamlit as st
 
-from policybuddy.ui import (
-    setup_page,
-    render_header,
+from policybuddy.service.service import answer_question
+from policybuddy.ui.ui import (
     get_user_question,
     render_answer,
+    render_header,
     render_metadata,
     render_sources,
+    setup_page,
 )
-
-from policybuddy.service import answer_question
-
 
 setup_page()
 

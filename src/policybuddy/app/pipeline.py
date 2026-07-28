@@ -1,5 +1,4 @@
-from policybuddy.graph import build_graph
-
+from policybuddy.graph.graph import build_graph
 
 policybuddy_graph = None
 

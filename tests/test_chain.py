@@ -1,4 +1,5 @@
 from unittest.mock import MagicMock, patch
+
 from langchain_core.documents import Document
 from langchain_core.messages import AIMessage
 from langchain_core.runnables import RunnableLambda

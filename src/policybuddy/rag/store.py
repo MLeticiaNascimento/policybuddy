@@ -20,7 +20,7 @@ def create_vector_store(
 
     if persist_directory.exists():
         shutil.rmtree(persist_directory)
-
+    print(documents)
     return Chroma.from_documents(
         documents=documents,
         embedding=create_embeddings(),

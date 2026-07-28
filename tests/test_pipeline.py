@@ -1,16 +1,15 @@
 from unittest.mock import MagicMock, patch
 
-from policybuddy.app.pipeline import (
-    ask_policybuddy,
-)
-
-from policybuddy.service import (
+from policybuddy.service.service.service import (
     answer_question,
 )
 
+from policybuddy.app.pipeline import (
+    ask_policybuddy,
+)
 from policybuddy.rag.retriever import (
-    RetrievalStatus,
     EvidenceConfidence,
+    RetrievalStatus,
 )
 
 

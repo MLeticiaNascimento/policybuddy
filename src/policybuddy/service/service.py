@@ -1,8 +1,8 @@
-from policybuddy.app.pipeline import ask_policybuddy
 from policybuddy.app.models import (
     PolicyBuddyResponse,
     SourceDocument,
 )
+from policybuddy.app.pipeline import ask_policybuddy
 
 
 def answer_question(question: str) -> PolicyBuddyResponse:

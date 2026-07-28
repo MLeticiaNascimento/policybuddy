@@ -1,10 +1,9 @@
 from pathlib import Path
 
 from langchain_community.document_loaders import (
-    TextLoader,
     PyPDFLoader,
+    TextLoader,
 )
-
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 
@@ -81,5 +80,5 @@ def load_documents(docs_path=DEFAULT_DOCS_PATH):
     print(
         f"\nTOTAL DOCUMENTS LOADED: {len(documents)}"
     )
-
+    print(documents)
     return documents

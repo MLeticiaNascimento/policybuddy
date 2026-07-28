@@ -2,9 +2,9 @@ from pathlib import Path
 
 from policybuddy.rag.loader import load_documents
 from policybuddy.rag.retriever import (
+    EvidenceConfidence,
     PolicyRetriever,
     RetrievalStatus,
-    EvidenceConfidence,
     retrieve_documents,
 )
 from policybuddy.rag.splitter import split_documents

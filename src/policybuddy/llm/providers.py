@@ -1,8 +1,8 @@
 from langchain_google_genai import ChatGoogleGenerativeAI
 
-from policybuddy.config import (
-    LLM_MODEL,
+from policybuddy.config.config import (
     GOOGLE_API_KEY,
+    LLM_MODEL,
 )
 
 

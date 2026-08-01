@@ -402,7 +402,14 @@ Start Streamlit:
 ```bash
 streamlit run src/policybuddy/app/app.py
 ```
+or
 
+```
+uv run streamlit run src/policybuddy/app.py --logger.level=error
+```
+The --logger.level=error parameter is recommended because it reduces unnecessary framework logs and keeps the terminal output cleaner during execution.
+
+After starting, open the Streamlit interface in the browser and submit policy-related questions.
 ---
 
 # 🧪 Testing Examples

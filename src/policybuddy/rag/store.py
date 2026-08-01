@@ -31,8 +31,16 @@ def create_vector_store(
 def load_vector_store(persist_directory: Path = VECTOR_STORE_PATH) -> Chroma:
     """
     Load an existing Chroma vector store.
+    
+    Raises:
+        FileNotFoundError: If the vector store has not been created yet.
     """
-
+    if not persist_directory.exists():
+        raise FileNotFoundError(
+            f"Vector store not found at '{persist_directory}'. "
+            "Run 'python scripts/build_vectorstore.py' before starting the application."
+    )
+    
     return Chroma(
         persist_directory=str(persist_directory),
         embedding_function=create_embeddings(),

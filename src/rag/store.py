@@ -1,1 +1,0 @@
-# responsável pelo banco vetorial

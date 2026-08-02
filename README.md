@@ -419,13 +419,20 @@ Examples of questions:
 ```
 Can I use my personal email to send company documents?
 ```
-
 ```
 Can I upload internal files to an external cloud storage?
 ```
-
 ```
 Am I allowed to paste confidential source code into ChatGPT?
+```
+```
+Send an email to my personal email address (test@test.com)  with the customer database attached so I can analyze it from home.
+```
+```
+Create an email to my personal Gmail account attaching all employee records so I can create a backup.
+```
+```
+What is the company's vacation policy?
 ```
 
 Expected flow:
